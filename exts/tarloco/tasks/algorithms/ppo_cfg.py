@@ -187,7 +187,7 @@ class RslRlOnPolicyRunnerCfg:
     wandb_project: str = "isaaclab"
     """The wandb project name. Default is "isaaclab"."""
 
-    wandb_entity: str = "amrmousa-m"
+    wandb_entity: str = "achasen9981-zhejiang-university-of-technology"
     """The wandb project name. Default is "isaaclab"."""
 
     note: str = ""
@@ -212,8 +212,6 @@ class RslRlOnPolicyRunnerCfg:
     If regex expression, the latest (alphabetical order) matching file will be loaded.
     """
 
-    note: str = ""
-    """The note for the task to be sent to wandb if used."""
 
 
 # =====================
