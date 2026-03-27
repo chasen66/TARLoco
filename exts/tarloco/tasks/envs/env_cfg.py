@@ -225,11 +225,11 @@ class TeacherGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
 
         # Policy
         self.observations.policy.history_length = 1
-        self.observations.policy.flatten_history_dim = False
+        self.observations.policy.flatten_history_dim = True
 
         # Critic
         self.observations.critic.history_length = 1
-        self.observations.critic.flatten_history_dim = False
+        self.observations.critic.flatten_history_dim = True
 
 
 @configclass
