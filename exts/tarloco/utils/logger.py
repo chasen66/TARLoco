@@ -126,9 +126,9 @@ class LoggerWrapper:
                         # Print the relative file path
                         wandb.save(relative_file_path)
                 print(f"[INFO]: Code state saved to Wandb from path {code_dir}.")
-                os.chdir(original_cwd)  # Restore the original working directory
             else:
                 print(f"[WARNING]: Code directory not found at path {code_dir}.")
+            os.chdir(original_cwd)  # Restore the original working directory
 
     def log_config(self, config):
         raise NotImplementedError("The log_config method is not implemented yet.")
@@ -268,7 +268,11 @@ class LoggerWrapper:
             video_folder_path = os.path.join(self.run_path, "videos")
             if path is None:
                 files = os.listdir(video_folder_path)
-                matching_videos = [f for f in files if f.startswith(self.wandb_run_name) and f.endswith(".mp4")]
+                matching_videos = [
+                    os.path.join(video_folder_path, f)
+                    for f in files
+                    if f.startswith(self.wandb_run_name) and f.endswith(".mp4")
+                ]
             else:
                 matching_videos = [path]
             if matching_videos:
@@ -345,7 +349,8 @@ class WandbSummaryWriter(SummaryWriter):
 
         experiment_name = getattr(locs["self"], "experiment_name", None)
         project = (experiment_name + "_eval") if experiment_name else locs["self"].cfg["experiment_name"]
-        entity = "amrmousa-m"
+        # Default to the currently authenticated account; allow explicit override via env var.
+        entity = os.getenv("WANDB_ENTITY", None) or locs["self"].cfg.get("wandb_entity", None)
         args_cli = getattr(locs["self"], "args_cli", None)
         note = getattr(args_cli, "note", "") or locs["self"].cfg.get("note", "") or ""
         note = note.replace("_", " ") if note else ""
@@ -356,7 +361,7 @@ class WandbSummaryWriter(SummaryWriter):
         wandb_continue_run = locs["self"].cfg.get("wandb_continue_run", None) or getattr(
             args_cli, "wandb_continue_run", None
         )
-        if wandb_continue_run:
+        if wandb_continue_run and entity:
             continue_id = self.find_run_id_by_name(path=f"{entity}/{project}", run_name=wandb_continue_run)
 
         wandb.init(
@@ -368,10 +373,6 @@ class WandbSummaryWriter(SummaryWriter):
             id=continue_id,
             resume="allow",
         )
-
-        # Change generated name to project-number format
-        if len(note):
-            wandb.run.name = note.replace(" ", "_") + "_" + wandb.run.name.split("-")[-1]
 
         self.name_map = {
             "Train/mean_reward/time": "Train/mean_reward_time",
@@ -386,6 +387,12 @@ class WandbSummaryWriter(SummaryWriter):
         wandb.define_metric("*", step_metric="Steps")
 
         run_name = os.path.split(log_dir)[-1]
+
+        # Set run name to "{timestamp}_{note}" (e.g. "2026-03-27_16-41-40_Teacher_MLP")
+        if len(note):
+            wandb.run.name = run_name + "_" + note.replace(" ", "_")
+        else:
+            wandb.run.name = run_name
 
         wandb.log({"log_dir": run_name})
 
@@ -516,9 +523,9 @@ class WandbSummaryWriter(SummaryWriter):
                     # Print the relative file path
                     wandb.save(relative_file_path)
             print(f"[INFO]: Code state saved to Wandb from path {code_dir}.")
-            os.chdir(original_cwd)  # Restore the original working directory
         else:
             print(f"[WARNING]: Code directory not found at path {code_dir}.")
+        os.chdir(original_cwd)  # Restore the original working directory
 
     @staticmethod
     def find_run_id_by_name(path, run_name):
