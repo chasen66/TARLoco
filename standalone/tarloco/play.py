@@ -67,6 +67,7 @@ import os
 import gymnasium as gym
 import isaaclab_tasks  # noqa: F401
 import torch
+from exts.tarloco.tasks import registry  # noqa: F401
 from isaaclab.utils.dict import print_dict
 from isaaclab_rl.rsl_rl import (
     RslRlOnPolicyRunnerCfg,

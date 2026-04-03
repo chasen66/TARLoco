@@ -58,6 +58,8 @@ class OnPolicyRunner:
         getattr(actor_critic, "post_init", lambda: None)()
         alg_class = eval(self.alg_cfg.pop("class_name"))  # PPO
         self.alg = alg_class(actor_critic, device=self.device, **self.alg_cfg)
+        if hasattr(self.alg, "num_envs"):
+            self.alg.num_envs = self.env.num_envs
         self.num_steps_per_env = self.cfg["num_steps_per_env"]
         self.save_interval = self.cfg["save_interval"]
         self.empirical_normalization = self.cfg["empirical_normalization"]
@@ -201,7 +203,7 @@ class OnPolicyRunner:
 
                 self.writer = WandbSummaryWriter(log_dir=self.log_dir, flush_secs=10, locs=locals())
                 # log config only if not continuing a run
-                if not self.cfg["wandb_continue_run"]:
+                if not self.cfg.get("wandb_continue_run", False):
                     self.writer.log_config(
                         runner_cfg=self.cfg,
                         alg_cfg=self.cfg["algorithm"],
@@ -402,6 +404,36 @@ class OnPolicyRunner:
                 )  # noqa: E731
 
         return policy
+
+    def get_inference_policy_recurrent(self, device=None):
+        """Get inference policy with hidden state management for recurrent models."""
+        self.eval_mode()
+        if device is not None:
+            self.alg.actor_critic.to(device)
+            if self.empirical_normalization:
+                self.obs_normalizer.to(device)
+        actor_critic = self.alg.actor_critic
+        obs_normalizer = self.obs_normalizer if self.empirical_normalization else None
+
+        class RecurrentPolicy:
+            def __init__(self):
+                self.hidden_states = None
+
+            def reset(self, dones):
+                if self.hidden_states is not None and dones.any():
+                    for h in self.hidden_states:
+                        h[..., dones.bool(), :] = 0.0
+
+            def __call__(self, x):
+                if obs_normalizer is not None:
+                    x = obs_normalizer(x.view(x.size(0), -1)).view_as(x)
+                obs_tuple = actor_critic.extract(x)
+                prop = obs_tuple[1]
+                z, self.hidden_states, vel = actor_critic.encode(obs_tuple, hidden_states=self.hidden_states)
+                actor_obs = torch.cat([z.detach(), prop, vel.detach()], dim=-1)
+                return actor_critic.actor(actor_obs)
+
+        return RecurrentPolicy()
 
     def train_mode(self):
         self.alg.actor_critic.train()

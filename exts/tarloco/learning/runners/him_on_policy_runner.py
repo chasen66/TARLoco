@@ -197,8 +197,13 @@ class HimOnPolicyRunner:
 
                 self.writer = WandbSummaryWriter(log_dir=self.log_dir, flush_secs=10, locs=locals())
                 # log config only if not continuing a run
-                if not self.cfg["wandb_continue_run"]:
-                    self.writer.log_config(self.env.cfg, self.cfg, self.alg_cfg, self.policy_cfg)
+                if not self.cfg.get("wandb_continue_run", False):
+                    self.writer.log_config(
+                        env_cfg=self.env.cfg,
+                        runner_cfg=self.cfg,
+                        alg_cfg=self.alg_cfg,
+                        policy_cfg=self.policy_cfg,
+                    )
             elif self.logger_type == "tensorboard":
                 self.writer = TensorboardSummaryWriter(log_dir=self.log_dir, flush_secs=10)
             else:

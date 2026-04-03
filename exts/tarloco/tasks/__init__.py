@@ -30,121 +30,121 @@ registry = {
     # ------
     # TAR
     # ------
-    "go1-train-tar-rnn-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughRnnTarRunnerCfg,
+    "go2-train-tar-rnn-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughRnnTarRunnerCfg,
     ),
-    "go1-eval-tar-rnn-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughRnnTarRunnerCfg,
+    "go2-eval-tar-rnn-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughRnnTarRunnerCfg,
     ),
     # ------
     # SLR
     # ------
-    "go1-train-slr-rough": TaskConfig(
-        env_cfg_entry_point=envs.SlrGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoSlrRunnerCfg,
+    "go2-train-slr-rough": TaskConfig(
+        env_cfg_entry_point=envs.SlrGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoSlrRunnerCfg,
     ),
-    "go1-eval-slr-rough": TaskConfig(
-        env_cfg_entry_point=envs.SlrGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoSlrRunnerCfg,
+    "go2-eval-slr-rough": TaskConfig(
+        env_cfg_entry_point=envs.SlrGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoSlrRunnerCfg,
     ),
     # --------
     # HIM
     # --------
-    "go1-train-him-rough": TaskConfig(
-        env_cfg_entry_point=envs.HimGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1PpoHimRunnerCfg,
+    "go2-train-him-rough": TaskConfig(
+        env_cfg_entry_point=envs.HimGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2PpoHimRunnerCfg,
     ),
-    "go1-eval-him-rough": TaskConfig(
-        env_cfg_entry_point=envs.HimGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1PpoHimRunnerCfg,
+    "go2-eval-him-rough": TaskConfig(
+        env_cfg_entry_point=envs.HimGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2PpoHimRunnerCfg,
     ),
     # ------
     # Teacher
     # ------
     # Plain teacher configuration: Direct feeding to the actor and critic without using an encoder
-    "go1-train-teacher-rough": TaskConfig(
-        env_cfg_entry_point=envs.TeacherGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoRunnerCfg,
+    "go2-train-teacher-rough": TaskConfig(
+        env_cfg_entry_point=envs.TeacherGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoRunnerCfg,
     ),
-    "go1-eval-teacher-rough": TaskConfig(
-        env_cfg_entry_point=envs.TeacherGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoRunnerCfg,
+    "go2-eval-teacher-rough": TaskConfig(
+        env_cfg_entry_point=envs.TeacherGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoRunnerCfg,
     ),
     # Teacher with MLP privileged encoder that concatenates the latents to one-step proprioceptive observations
-    "go1-train-teacher-encoder-rough": TaskConfig(
-        env_cfg_entry_point=envs.TeacherGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoExpertRunnerCfg,
+    "go2-train-teacher-encoder-rough": TaskConfig(
+        env_cfg_entry_point=envs.TeacherGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoExpertRunnerCfg,
     ),
-    "go1-eval-teacher-encoder-rough": TaskConfig(
-        env_cfg_entry_point=envs.TeacherGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoExpertRunnerCfg,
+    "go2-eval-teacher-encoder-rough": TaskConfig(
+        env_cfg_entry_point=envs.TeacherGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoExpertRunnerCfg,
     ),
     # Teacher with RNN privileged encoder that concatenates the latents to one-step proprioceptive observations
-    "go1-train-teacher-rnn-rough": TaskConfig(
-        env_cfg_entry_point=envs.TeacherGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughRnnRunnerCfg,
+    "go2-train-teacher-rnn-rough": TaskConfig(
+        env_cfg_entry_point=envs.TeacherGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughRnnRunnerCfg,
     ),
-    "go1-eval-teacher-rnn-rough": TaskConfig(
-        env_cfg_entry_point=envs.TeacherGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughRnnRunnerCfg,
+    "go2-eval-teacher-rnn-rough": TaskConfig(
+        env_cfg_entry_point=envs.TeacherGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughRnnRunnerCfg,
     ),
 
     # ------------------------------ Ablation Studies ------------------------------
     # TAR replacing RNN encoder with 10-steps MLP
-    "go1-train-tar-mlp-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarMlpGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoTarRunnerCfg,
+    "go2-train-tar-mlp-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarMlpGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoTarRunnerCfg,
     ),
-    "go1-eval-tar-mlp-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarMlpGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoTarRunnerCfg,
+    "go2-eval-tar-mlp-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarMlpGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoTarRunnerCfg,
     ),
     # TAR replacing RNN encoder with TCN
-    "go1-train-tar-tcn-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarTcnGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughTcnTarRunnerCfg,
+    "go2-train-tar-tcn-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarTcnGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughTcnTarRunnerCfg,
     ),
-    "go1-eval-tar-tcn-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarTcnGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughTcnTarRunnerCfg,
+    "go2-eval-tar-tcn-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarTcnGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughTcnTarRunnerCfg,
     ),
     # TAR without privileged information
-    "go1-train-tar-rnn-no-priv-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarRnnNoPrivGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughRnnTarNoPrivRunnerCfg,
+    "go2-train-tar-rnn-no-priv-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarRnnNoPrivGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughRnnTarNoPrivRunnerCfg,
     ),
-    "go1-eval-tar-rnn-no-priv-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarRnnNoPrivGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughRnnTarNoPrivRunnerCfg,
+    "go2-eval-tar-rnn-no-priv-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarRnnNoPrivGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughRnnTarNoPrivRunnerCfg,
     ),
     # TAR without privileged information and velocity estimation
-    "go1-train-tar-rnn-no-priv-no-vel-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarRnnNoPrivGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughRnnTarNoPrivNoVelRunnerCfg,
+    "go2-train-tar-rnn-no-priv-no-vel-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarRnnNoPrivGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughRnnTarNoPrivNoVelRunnerCfg,
     ),
-    "go1-eval-tar-rnn-no-priv-no-vel-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarRnnNoPrivGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughRnnTarNoPrivNoVelRunnerCfg,
+    "go2-eval-tar-rnn-no-priv-no-vel-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarRnnNoPrivGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughRnnTarNoPrivNoVelRunnerCfg,
     ),
     # TAR replacing RNN encoder with 10-steps MLP, without privileged information
-    "go1-train-tar-mlp-no-priv-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarMlpNoPrivGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoTarNoPrivRunnerCfg,
+    "go2-train-tar-mlp-no-priv-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarMlpNoPrivGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoTarNoPrivRunnerCfg,
     ),
-    "go1-eval-tar-mlp-no-priv-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarMlpNoPrivGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoTarNoPrivRunnerCfg,
+    "go2-eval-tar-mlp-no-priv-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarMlpNoPrivGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoTarNoPrivRunnerCfg,
     ),
     # TAR replacing RNN encoder with 10-steps MLP, without privileged information and velocity estimation
-    "go1-train-tar-mlp-no-priv-no-vel-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarMlpNoPrivGo1LocomotionVelocityRoughEnvCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoTarNoPrivNoVelRunnerCfg,
+    "go2-train-tar-mlp-no-priv-no-vel-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarMlpNoPrivGo2LocomotionVelocityRoughEnvCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoTarNoPrivNoVelRunnerCfg,
     ),
-    "go1-eval-tar-mlp-no-priv-no-vel-rough": TaskConfig(
-        env_cfg_entry_point=envs.TarMlpNoPrivGo1LocomotionVelocityRoughEnvEvalCfg,
-        rsl_rl_cfg_entry_point=agents.Go1RoughPpoTarNoPrivNoVelRunnerCfg,
+    "go2-eval-tar-mlp-no-priv-no-vel-rough": TaskConfig(
+        env_cfg_entry_point=envs.TarMlpNoPrivGo2LocomotionVelocityRoughEnvEvalCfg,
+        rsl_rl_cfg_entry_point=agents.Go2RoughPpoTarNoPrivNoVelRunnerCfg,
     ),
 }
 

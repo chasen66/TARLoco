@@ -134,8 +134,8 @@ torch.backends.cudnn.deterministic = False
 torch.backends.cudnn.benchmark = False
 
 # Get the task configuration from the registry based on the task name
-task_config = registry[args_cli.task]
-if not task_config:
+task_config = registry.get(args_cli.task)
+if task_config is None:
     raise ValueError(
         f"Task '{args_cli.task}' is not found in the registry.\n"
         f"Available tasks are: {', '.join(registry.keys())}\n"

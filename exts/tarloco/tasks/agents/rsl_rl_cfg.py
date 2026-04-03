@@ -38,7 +38,7 @@ ppo_algo_cfg = RslRlPpoAlgorithmCfg(
 
 
 @configclass
-class Go1RoughPpoRunnerCfg(RslRlOnPolicyRunnerCfg):
+class Go2RoughPpoRunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
     max_iterations = 1500
     save_interval = 100
@@ -57,7 +57,7 @@ class Go1RoughPpoRunnerCfg(RslRlOnPolicyRunnerCfg):
 
 
 @configclass
-class Go1RoughPpoExpertRunnerCfg(Go1RoughPpoRunnerCfg):
+class Go2RoughPpoExpertRunnerCfg(Go2RoughPpoRunnerCfg):
     policy = RslRlPpoSlrPolicyCfg(
         class_name="ActorCriticMlpDblEncExpert",
         num_hist=1,
@@ -79,7 +79,7 @@ class Go1RoughPpoExpertRunnerCfg(Go1RoughPpoRunnerCfg):
 
 
 @configclass
-class Go1RoughRnnRunnerCfg(RslRlOnPolicyRunnerCfg):
+class Go2RoughRnnRunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
     max_iterations = 5000
     save_interval = 100  # Checkpointing interval
@@ -128,7 +128,7 @@ tar_algo_cfg = RslRlPpoTarAlgorithmCfg(
 
 # MLP Policy
 @configclass
-class Go1RoughPpoTarRunnerCfg(Go1RoughPpoRunnerCfg):
+class Go2RoughPpoTarRunnerCfg(Go2RoughPpoRunnerCfg):
     policy = RslRlPpoTarPolicyCfg(
         class_name="ActorCriticTar",
         num_hist=10,
@@ -148,7 +148,7 @@ class Go1RoughPpoTarRunnerCfg(Go1RoughPpoRunnerCfg):
 
 # RNN Policy
 @configclass
-class Go1RoughRnnTarRunnerCfg(Go1RoughRnnRunnerCfg):
+class Go2RoughRnnTarRunnerCfg(Go2RoughRnnRunnerCfg):
     policy = RslRlRnnTarPolicyCfg(
         class_name="ActorCriticTarRnn",
         init_noise_std=1.0,
@@ -172,7 +172,7 @@ class Go1RoughRnnTarRunnerCfg(Go1RoughRnnRunnerCfg):
 
 # TCN Policy
 @configclass
-class Go1RoughTcnTarRunnerCfg(Go1RoughPpoTarRunnerCfg):
+class Go2RoughTcnTarRunnerCfg(Go2RoughPpoTarRunnerCfg):
     policy = RslRlPpoTarPolicyCfg(
         class_name="ActorCriticTarTcn",
         num_hist=50,
@@ -192,7 +192,7 @@ class Go1RoughTcnTarRunnerCfg(Go1RoughPpoTarRunnerCfg):
 
 # No priv Rnn Policy
 @configclass
-class Go1RoughRnnTarNoPrivRunnerCfg(Go1RoughPpoRunnerCfg):
+class Go2RoughRnnTarNoPrivRunnerCfg(Go2RoughPpoRunnerCfg):
     policy = RslRlRnnTarPolicyCfg(
         class_name="ActorCriticTarRnnFt",
         init_noise_std=1.0,
@@ -217,7 +217,7 @@ class Go1RoughRnnTarNoPrivRunnerCfg(Go1RoughPpoRunnerCfg):
 
 
 @configclass
-class Go1RoughRnnTarNoPrivNoVelRunnerCfg(Go1RoughPpoRunnerCfg):
+class Go2RoughRnnTarNoPrivNoVelRunnerCfg(Go2RoughPpoRunnerCfg):
     policy = RslRlRnnTarPolicyCfg(
         class_name="ActorCriticTarRnnFtNoVel",
         init_noise_std=1.0,
@@ -241,7 +241,7 @@ class Go1RoughRnnTarNoPrivNoVelRunnerCfg(Go1RoughPpoRunnerCfg):
 
 # No priv MLP Policy
 @configclass
-class Go1RoughPpoTarNoPrivRunnerCfg(Go1RoughPpoRunnerCfg):
+class Go2RoughPpoTarNoPrivRunnerCfg(Go2RoughPpoRunnerCfg):
     policy = RslRlPpoTarPolicyCfg(
         class_name="ActorCriticTarFt",
         num_hist=10,
@@ -261,7 +261,7 @@ class Go1RoughPpoTarNoPrivRunnerCfg(Go1RoughPpoRunnerCfg):
 
 # No priv No Vel MLP Policy
 @configclass
-class Go1RoughPpoTarNoPrivNoVelRunnerCfg(Go1RoughPpoRunnerCfg):
+class Go2RoughPpoTarNoPrivNoVelRunnerCfg(Go2RoughPpoRunnerCfg):
     policy = RslRlPpoTarPolicyCfg(
         class_name="ActorCriticTarFtNoVel",
         num_hist=10,
@@ -285,7 +285,7 @@ class Go1RoughPpoTarNoPrivNoVelRunnerCfg(Go1RoughPpoRunnerCfg):
 
 
 @configclass
-class Go1RoughPpoSlrRunnerCfg(Go1RoughPpoRunnerCfg):
+class Go2RoughPpoSlrRunnerCfg(Go2RoughPpoRunnerCfg):
     policy = RslRlPpoSlrPolicyCfg(
         class_name="ActorCriticMlpSlr",
         num_hist=10,
@@ -322,7 +322,7 @@ class Go1RoughPpoSlrRunnerCfg(Go1RoughPpoRunnerCfg):
 #         HIM POLICIES
 # =============================
 @configclass
-class Go1PpoHimRunnerCfg(Go1RoughPpoRunnerCfg):
+class Go2PpoHimRunnerCfg(Go2RoughPpoRunnerCfg):
     policy = RslRlPpoPolicyCfg(  # teacher policy if distil is used
         class_name="ActorCriticHIM",
         init_noise_std=1.0,

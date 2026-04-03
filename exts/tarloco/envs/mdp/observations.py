@@ -70,7 +70,7 @@ def feet_contact_z(
 ) -> torch.Tensor:
     """Return the z-component of the net contact forces on the feet."""
     contact_sensor: ContactSensor = env.scene.sensors[sensor_cfg.name]
-    net_contact_forces = contact_sensor.data.net_forces_w[:, [4, 8, 12, 16], 2]
+    net_contact_forces = contact_sensor.data.net_forces_w[:, sensor_cfg.body_ids, 2]
     return net_contact_forces
 
 

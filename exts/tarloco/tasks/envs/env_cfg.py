@@ -21,7 +21,7 @@ from .base import (
 
 # -------------------- Final Configurations --------------------
 @configclass
-class TarGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
+class TarGo2LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
     """Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -47,7 +47,7 @@ class TarGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
 
 
 @configclass
-class TarGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarGo1LocomotionVelocityRoughEnvCfg):
+class TarGo2LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarGo2LocomotionVelocityRoughEnvCfg):
     """Evaluation Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -55,7 +55,7 @@ class TarGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarGo1Locom
 
 
 @configclass
-class TarMlpGo1LocomotionVelocityRoughEnvCfg(TarGo1LocomotionVelocityRoughEnvCfg):
+class TarMlpGo2LocomotionVelocityRoughEnvCfg(TarGo2LocomotionVelocityRoughEnvCfg):
     """Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -66,7 +66,7 @@ class TarMlpGo1LocomotionVelocityRoughEnvCfg(TarGo1LocomotionVelocityRoughEnvCfg
 
 
 @configclass
-class TarMlpGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarMlpGo1LocomotionVelocityRoughEnvCfg):
+class TarMlpGo2LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarMlpGo2LocomotionVelocityRoughEnvCfg):
     """Evaluation Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -74,7 +74,7 @@ class TarMlpGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarMlpGo
 
 
 @configclass
-class TarTcnGo1LocomotionVelocityRoughEnvCfg(TarGo1LocomotionVelocityRoughEnvCfg):
+class TarTcnGo2LocomotionVelocityRoughEnvCfg(TarGo2LocomotionVelocityRoughEnvCfg):
     """Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -85,7 +85,7 @@ class TarTcnGo1LocomotionVelocityRoughEnvCfg(TarGo1LocomotionVelocityRoughEnvCfg
 
 
 @configclass
-class TarTcnGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarTcnGo1LocomotionVelocityRoughEnvCfg):
+class TarTcnGo2LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarTcnGo2LocomotionVelocityRoughEnvCfg):
     """Evaluation Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -93,7 +93,7 @@ class TarTcnGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarTcnGo
 
 
 @configclass
-class TarMlpNoPrivGo1LocomotionVelocityRoughEnvCfg(TarMlpGo1LocomotionVelocityRoughEnvCfg):
+class TarMlpNoPrivGo2LocomotionVelocityRoughEnvCfg(TarMlpGo2LocomotionVelocityRoughEnvCfg):
     """Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -117,7 +117,7 @@ class TarMlpNoPrivGo1LocomotionVelocityRoughEnvCfg(TarMlpGo1LocomotionVelocityRo
 
 
 @configclass
-class TarMlpNoPrivGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarMlpNoPrivGo1LocomotionVelocityRoughEnvCfg):
+class TarMlpNoPrivGo2LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarMlpNoPrivGo2LocomotionVelocityRoughEnvCfg):
     """Evaluation Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -125,7 +125,7 @@ class TarMlpNoPrivGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, Ta
 
 
 @configclass
-class TarRnnNoPrivGo1LocomotionVelocityRoughEnvCfg(TarMlpNoPrivGo1LocomotionVelocityRoughEnvCfg):
+class TarRnnNoPrivGo2LocomotionVelocityRoughEnvCfg(TarMlpNoPrivGo2LocomotionVelocityRoughEnvCfg):
     """Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -136,7 +136,7 @@ class TarRnnNoPrivGo1LocomotionVelocityRoughEnvCfg(TarMlpNoPrivGo1LocomotionVelo
 
 
 @configclass
-class TarRnnNoPrivGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarRnnNoPrivGo1LocomotionVelocityRoughEnvCfg):
+class TarRnnNoPrivGo2LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TarRnnNoPrivGo2LocomotionVelocityRoughEnvCfg):
     """Evaluation Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -144,7 +144,7 @@ class TarRnnNoPrivGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, Ta
 
 
 @configclass
-class SlrGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
+class SlrGo2LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
     """Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -168,7 +168,7 @@ class SlrGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
 
 
 @configclass
-class SlrGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, SlrGo1LocomotionVelocityRoughEnvCfg):
+class SlrGo2LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, SlrGo2LocomotionVelocityRoughEnvCfg):
     """Evaluation Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -176,7 +176,7 @@ class SlrGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, SlrGo1Locom
 
 
 @configclass
-class HimGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
+class HimGo2LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
     """Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -205,7 +205,7 @@ class HimGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
 
 
 @configclass
-class HimGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, HimGo1LocomotionVelocityRoughEnvCfg):
+class HimGo2LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, HimGo2LocomotionVelocityRoughEnvCfg):
     """Evaluation Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -213,7 +213,7 @@ class HimGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, HimGo1Locom
 
 
 @configclass
-class TeacherGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
+class TeacherGo2LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
     """Configuration for Rough terrain."""
 
     def __post_init__(self):
@@ -233,7 +233,7 @@ class TeacherGo1LocomotionVelocityRoughEnvCfg(BaseLocomotionVelocityEnvCfg):
 
 
 @configclass
-class TeacherGo1LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TeacherGo1LocomotionVelocityRoughEnvCfg):
+class TeacherGo2LocomotionVelocityRoughEnvEvalCfg(EvaluationConfigMixin, TeacherGo2LocomotionVelocityRoughEnvCfg):
     """Evaluation Configuration for Rough terrain."""
 
     def __post_init__(self):

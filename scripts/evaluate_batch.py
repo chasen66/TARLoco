@@ -6,7 +6,7 @@ cuda = 0  # replace with argparse if needed
 
 # ------------------------ Task Setup ------------------------
 task_dict = {
-    "go1-eval-him-rough": {
+    "go2-eval-him-rough": {
         "group": "HIM",
         "load_runs": [
             "2025-07-23_11-25-35_HIM_S0_7",

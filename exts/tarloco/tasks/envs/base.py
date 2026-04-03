@@ -27,7 +27,7 @@ from isaaclab.sensors import ContactSensorCfg, RayCasterCfg, patterns
 from isaaclab.terrains import TerrainImporterCfg
 from isaaclab.utils import configclass
 from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
-from isaaclab_assets.robots.unitree import UNITREE_GO1_CFG
+from isaaclab_assets.robots.unitree import UNITREE_GO2_CFG
 
 import exts.tarloco.envs.mdp as mdp
 from exts.tarloco.utils.terrains_cfg import ROUGH_TERRAINS_CFG
@@ -60,7 +60,7 @@ class RoughSceneCfg(InteractiveSceneCfg):
         debug_vis=False,
     )
     # robots
-    robot: ArticulationCfg = UNITREE_GO1_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+    robot: ArticulationCfg = UNITREE_GO2_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
     # sensors
     height_scanner = RayCasterCfg(
@@ -177,6 +177,7 @@ class FullObservationsCfg(ObservationsCfg):
         )
         feet_contact_z = ObsTerm(
             func=mdp.feet_contact_z,
+            params={"sensor_cfg": SceneEntityCfg("contact_forces", body_names=".*_foot")},
             noise=Unoise(n_min=-0.1, n_max=0.1),
             clip=(-100.0, 100.0),
             scale=1.0,
@@ -221,7 +222,7 @@ class EventCfg:
         func=mdp.randomize_rigid_body_mass,
         mode="startup",
         params={
-            "asset_cfg": SceneEntityCfg("robot", body_names="trunk"),
+            "asset_cfg": SceneEntityCfg("robot", body_names="base"),
             "mass_distribution_params": (-1.0, 3.0),
             "operation": "add",
         },
@@ -246,7 +247,7 @@ class EventCfg:
         func=mdp.apply_external_force_torque,
         mode="reset",
         params={
-            "asset_cfg": SceneEntityCfg("robot", body_names="trunk"),
+            "asset_cfg": SceneEntityCfg("robot", body_names="base"),
             "force_range": (-10.0, 10.0),
             "torque_range": (-5.0, 5.0),
         },
@@ -285,7 +286,7 @@ class EventCfg:
         mode="interval",
         interval_range_s=(5.0, 10.0),
         params={
-            "asset_cfg": SceneEntityCfg("robot", body_names="trunk"),
+            "asset_cfg": SceneEntityCfg("robot", body_names="base"),
             "velocity_range": {"x": (-0.5, 0.5), "y": (-0.5, 0.5)},
         },
     )
@@ -343,7 +344,7 @@ class TerminationsCfg:
     base_contact = DoneTerm(
         func=mdp.illegal_contact,
         params={
-            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=["trunk", ".*_hip"]),
+            "sensor_cfg": SceneEntityCfg("contact_forces", body_names=["base", ".*_hip"]),
             "threshold": 1.0,
         },
     )
@@ -404,7 +405,7 @@ class BaseLocomotionVelocityEnvCfg(ManagerBasedRLEnvCfg):
 
         # Rough terrain environment settings
         if self.scene.height_scanner is not None:
-            self.scene.height_scanner.prim_path = "{ENV_REGEX_NS}/Robot/trunk"
+            self.scene.height_scanner.prim_path = "{ENV_REGEX_NS}/Robot/base"
         # scale down the terrains because the robot is small
         self.scene.terrain.terrain_generator.sub_terrains["boxes"].grid_height_range = (0.025, 0.1)
         self.scene.terrain.terrain_generator.sub_terrains["random_rough"].noise_range = (0.01, 0.06)
@@ -458,4 +459,5 @@ class EvaluationConfigMixin:
         self.events.reset_base_external_force_torque = None
         self.events.push_robot = None
 
-        self.termiantions = TerminationsEvalCfg()
+        # self.termiantions = TerminationsEvalCfg()
+        self.terminations= TerminationsEvalCfg()

@@ -37,6 +37,10 @@ class EvaluateWrapper(gym.Wrapper):
         self.max_episode_length = env.unwrapped.max_episode_length
         self.robot_idx = robot_idx
 
+        # Resolve foot body indices from the contact sensor
+        contact_sensor = env.unwrapped.scene["contact_forces"]
+        self.foot_body_ids = [contact_sensor.body_names.index(n) for n in contact_sensor.body_names if n.endswith("_foot")]
+
         # Logging
         # Log dict contains signals which are timeseries data for the single episode of a single robot while
         # the metrics are scalars values for all the robots
@@ -110,7 +114,7 @@ class EvaluateWrapper(gym.Wrapper):
         sim_time = self.env.unwrapped.scene["robot"].data._sim_timestamp
         robot_position = self.env.unwrapped.scene["robot"].data.body_pos_w[self.robot_idx, 1, :]
         contact_forces_z = self.env.unwrapped.scene["contact_forces"].data.net_forces_w[
-            self.robot_idx, [4, 8, 12, 16], 2
+            self.robot_idx, self.foot_body_ids, 2
         ]
         base_vel_x_y = self.env.unwrapped.scene["robot"].data.root_lin_vel_b[self.robot_idx, :2]
         base_yaw = self.env.unwrapped.scene["robot"].data.root_ang_vel_b[self.robot_idx, 2]
@@ -154,14 +158,15 @@ class EvaluateWrapper(gym.Wrapper):
             ang_err (torch.Tensor): RMSE of angular velocity tracking in z.
         """
         data = get_attr_recursively(self.env, "scene").articulations["robot"].data
-        t_dim_exist = data.body_lin_vel_w.dim() == 3
+        body_dim_exist = data.body_lin_vel_w.dim() == 3
+        obs_has_time = obs.dim() == 3
 
-        lin_vel = data.body_lin_vel_w[:, -1, :] if t_dim_exist else data.body_lin_vel_w
-        ang_vel = data.body_ang_vel_w[:, -1, :] if t_dim_exist else data.body_ang_vel_w
+        lin_vel = data.body_lin_vel_w[:, -1, :] if body_dim_exist else data.body_lin_vel_w
+        ang_vel = data.body_ang_vel_w[:, -1, :] if body_dim_exist else data.body_ang_vel_w
         student_obs = obs.shape[-1] == 45
 
-        # Extract commands from observations
-        if t_dim_exist:
+        # Extract commands from observations (obs may be 2D for teacher, 3D for student with history)
+        if obs_has_time:
             cmd = obs[:, -1, 6:9] if student_obs else obs[:, -1, 9:12]
         else:
             cmd = obs[:, 6:9] if student_obs else obs[:, 9:12]

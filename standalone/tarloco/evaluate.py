@@ -113,8 +113,8 @@ from exts.tarloco.utils.utils import (
 )
 
 # Get the task configuration from the registry based on the task name
-task_config = registry[args_cli.task]
-if not task_config:
+task_config = registry.get(args_cli.task)
+if task_config is None:
     raise ValueError(
         f"Task '{args_cli.task}' is not found in the registry.\n"
         f"Available tasks are: {', '.join(registry.keys())}\n"
@@ -197,7 +197,12 @@ def main(env_cfg: ManagerBasedRLEnvCfg, agent_cfg: task_config.agent_cfg):  # ty
     print(f"[INFO]: Loading model checkpoint from: {resume_path}")
 
     # obtain the trained policy for inference
-    policy = runner.get_inference_policy(device=env.unwrapped.device)  # type: ignore
+    is_recurrent = getattr(runner.alg.actor_critic, "is_recurrent", False)
+    if is_recurrent:
+        policy = runner.get_inference_policy_recurrent(device=env.unwrapped.device)  # type: ignore
+        print("[INFO]: Using recurrent inference policy with hidden state management.")
+    else:
+        policy = runner.get_inference_policy(device=env.unwrapped.device)  # type: ignore
 
     # export policy to onnx/jit
     if args_cli.export_model:
@@ -237,7 +242,12 @@ def main(env_cfg: ManagerBasedRLEnvCfg, agent_cfg: task_config.agent_cfg):  # ty
             # agent stepping
             actions = policy(obs)
             # env stepping
-            obs, _, _, _, info = env.step(actions)
+            obs, _, terminated, truncated, info = env.step(actions)
+
+            # reset hidden states for terminated/truncated environments
+            if is_recurrent:
+                dones = terminated | truncated
+                policy.reset(dones)
 
             # logging signals
             if enable_logger:

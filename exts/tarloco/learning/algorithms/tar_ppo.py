@@ -65,7 +65,7 @@ class PPOTAR(PPO):
             optimizer=optimizer,
         )
 
-        self.num_envs = 4096
+        self.num_envs = None
         self.aux_loss_coef = aux_loss_coef
 
     def _compute_auxiliary_loss(self, batch: dict) -> dict:
@@ -116,8 +116,8 @@ class PPOTAR(PPO):
         pos_diff = next_z_c - pred_next_z
         neg_diff = next_z_c - next_neg_z
 
-        pos_loss = (pos_diff.pow(2)).sum(1).mean()
-        neg_loss = (neg_diff.pow(2)).sum(1)
+        pos_loss = (pos_diff.pow(2)).sum(-1).mean()
+        neg_loss = (neg_diff.pow(2)).sum(-1)
 
         zeros = torch.zeros_like(pos_loss)
         neg_loss = torch.max(zeros, 1.0 - neg_loss).mean()
