@@ -1,0 +1,40 @@
+diff --git a/source/isaaclab_assets/isaaclab_assets/robots/unitree.py b/source/isaaclab_assets/isaaclab_assets/robots/unitree.py
+index 22253bf0d08..fce61b254d2 100644
+--- a/source/isaaclab_assets/isaaclab_assets/robots/unitree.py
++++ b/source/isaaclab_assets/isaaclab_assets/robots/unitree.py
+@@ -22,6 +22,7 @@ import isaaclab.sim as sim_utils
+ from isaaclab.actuators import ActuatorNetMLPCfg, DCMotorCfg, ImplicitActuatorCfg
+ from isaaclab.assets.articulation import ArticulationCfg
+ from isaaclab.utils.assets import ISAACLAB_NUCLEUS_DIR
++from isaaclab_assets.robots import unitree_actuators
+ 
+ ##
+ # Configuration - Actuators.
+@@ -149,7 +150,9 @@ UNITREE_GO2_CFG = ArticulationCfg(
+             max_depenetration_velocity=1.0,
+         ),
+         articulation_props=sim_utils.ArticulationRootPropertiesCfg(
+-            enabled_self_collisions=False, solver_position_iteration_count=4, solver_velocity_iteration_count=0
++            enabled_self_collisions=False,
++            solver_position_iteration_count=4,
++            solver_velocity_iteration_count=0
+         ),
+     ),
+     init_state=ArticulationCfg.InitialStateCfg(
+@@ -165,14 +168,11 @@ UNITREE_GO2_CFG = ArticulationCfg(
+     ),
+     soft_joint_pos_limit_factor=0.9,
+     actuators={
+-        "base_legs": DCMotorCfg(
++        "base_legs": unitree_actuators.UnitreeActuatorCfg_Go2HV(
+             joint_names_expr=[".*_hip_joint", ".*_thigh_joint", ".*_calf_joint"],
+-            effort_limit=23.5,
+-            saturation_effort=23.5,
+-            velocity_limit=30.0,
+             stiffness=25.0,
+             damping=0.5,
+-            friction=0.0,
++            friction=0.01,
+         ),
+     },
+ )
